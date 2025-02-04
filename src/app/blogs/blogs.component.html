@@ -1,1 +1,60 @@
-<p>blogs works!</p>
+<app-navbar/>
+<div class="card">
+  <p-toast />
+  <p-table
+    #dt1
+    [value]="products"
+    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    selectionMode="single"
+    dataKey="id"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [rows]="10"
+    [paginator]="true"
+    stateStorage="session"
+    stateKey="statedemo-session"
+  >
+    <ng-template #caption>
+      <p-iconfield iconPosition="left">
+        <p-inputicon>
+          <i class="pi pi-search"></i>
+        </p-inputicon>
+        <input
+          pInputText
+          type="text"
+          (input)="dt1.filterGlobal($event.target, 'contains')"
+          placeholder="Global Search"
+        />
+      </p-iconfield>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="country.name" style="width:25%">
+          Title <p-sortIcon field="country.name" />
+        </th>
+        <th pSortableColumn="representative.name" style="width:25%">
+          Content <p-sortIcon field="representative.name" />
+        </th>
+        <th pSortableColumn="status" style="width:25%">Created at <p-sortIcon field="status" /></th>
+        <th style="width: 5rem"></th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-product>
+      <tr [pSelectableRow]="product">
+        <td>
+          {{ product.name }}
+        </td>
+        <td>{{ product.company }}</td>
+        <td>{{ product.balance }}</td>
+        <td>
+          <p-button icon="pi pi-search" (click)="selectProduct(product)" severity="secondary" rounded/>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template emptymessage>
+      <tr>
+        <td colspan="4">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

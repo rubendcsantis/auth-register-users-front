@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import {Checkbox} from 'primeng/checkbox';
 import {InputText} from 'primeng/inputtext';
 import {Ripple} from 'primeng/ripple';
+import {RouterLink} from '@angular/router';
 @Component({
   selector: 'app-login',
   imports: [
@@ -11,10 +12,12 @@ import {Ripple} from 'primeng/ripple';
     ButtonModule,
     Checkbox,
     InputText,
-    Ripple
+    Ripple,
+    RouterLink,
   ],
   templateUrl: './login.component.html',
 })
+
 export class LoginComponent {
   username: string = '';
   password: string = '';
