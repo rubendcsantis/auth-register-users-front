@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
+import {ButtonModule} from 'primeng/button';
 import {InputText} from 'primeng/inputtext';
 import {Ripple} from 'primeng/ripple';
 import {Router, RouterLink} from '@angular/router';
@@ -9,6 +9,7 @@ import {MessageService} from 'primeng/api';
 import {UserService} from '../services/user.service';
 import {UserLogin} from '../interfaces/interfaces';
 import {Toast} from 'primeng/toast';
+
 @Component({
   selector: 'app-login',
   imports: [
@@ -27,14 +28,15 @@ import {Toast} from 'primeng/toast';
 
 export class LoginComponent {
 
-  constructor( private messageService: MessageService, private userService: UserService, private router: Router) { }
+  constructor(private messageService: MessageService, private userService: UserService, private router: Router) {
+  }
 
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.min(6)]);
 
   onSubmit() {
-    if(!this.email.valid || !this.password.valid){
-      this.messageService.add({ severity: 'warn', summary: 'Complete the form' });
+    if (!this.email.valid || !this.password.valid) {
+      this.messageService.add({severity: 'warn', summary: 'Complete the form'});
       return
     }
     const user: UserLogin = {
@@ -43,18 +45,23 @@ export class LoginComponent {
     }
     this.userService.login(user).subscribe({
       next: (response) => {
-        this.messageService.add({ severity: 'success', summary: ` register successfully. Redirect...` });
+        this.messageService.add({severity: 'success', summary: ` register successfully. Redirect...`});
         setTimeout(() => {
           this.router.navigate(['/post-table']);
-        },1000)
+        }, 1000)
         this.userService.setToken(response.access_token, response.expires_in)
       },
       error: ($e) => {
-        const response = JSON.parse($e.error);
-        for (const key in response) {
-          response[key].forEach((message: string) => {
-            this.messageService.add({ severity: 'error', summary: `${message}` });
-          });
+        if (typeof $e.error === 'object') {
+          const response = $e.error;
+          this.messageService.add({severity: 'error', summary: `${response.error}`});
+        } else {
+          const response = JSON.parse($e.error);
+          for (const key in response) {
+            response[key].forEach((message: string) => {
+              this.messageService.add({severity: 'error', summary: `${message}`});
+            });
+          }
         }
       }
     })

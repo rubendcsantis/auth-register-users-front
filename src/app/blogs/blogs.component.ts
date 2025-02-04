@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavbarComponent} from '../navbar/navbar.component';
-import {Product} from '../interfaces/interfaces';
+import {Post} from '../interfaces/interfaces';
 import {PostService} from '../services/post.service';
 import {TableModule} from 'primeng/table';
 import {IconField} from 'primeng/iconfield';
@@ -9,6 +9,7 @@ import {InputText} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
 import {MessageService} from 'primeng/api';
 import {Toast} from 'primeng/toast';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-blogs',
@@ -23,20 +24,21 @@ import {Toast} from 'primeng/toast';
   ],
   templateUrl: './blogs.component.html',
   styleUrl: './blogs.component.css',
-  providers: [MessageService, PostService],
+  providers: [MessageService, PostService, UserService],
 })
 export class BlogsComponent {
-  products!: Product[];
+  posts!: Post[];
 
-  constructor(private productService: PostService, private messageService: MessageService) {}
+  constructor(private postService: PostService, private userService: UserService, private messageService: MessageService) {}
 
   ngOnInit() {
-    this.productService.getCustomersLarge().then((data: any) => {
-      this.products = data;
+    const token = this.userService.getToken();
+    this.postService.getPosts(token).then((data: any) => {
+      this.posts = data;
     });
   }
 
-  selectProduct(product: Product) {
-    this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
+  selectPost(post: Post) {
+    this.messageService.add({ severity: 'info', summary: 'Post Selected', detail: post.title });
   }
 }

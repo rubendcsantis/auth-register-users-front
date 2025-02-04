@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
-import {User, UserLogin} from '../interfaces/interfaces';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {User, UserLogin, UserTable} from '../interfaces/interfaces';
 import {Observable} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 
@@ -12,6 +12,23 @@ export class UserService {
   private readonly myAppUrl: string;
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.myAppUrl = environment.back_url;
+  }
+
+  async getUsers() {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`,
+      "Content-Type": "application/json",
+    });
+    return await this.http.get<any>(`${this.myAppUrl}/users`, {headers: headers}).toPromise();
+  }
+
+  async updateUsers(id: number, user: UserTable) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`,
+      'Content-Type': 'application/json',
+    });
+
+    return await this.http.put<any>(`${this.myAppUrl}/users/${id}`,  user, { headers }).toPromise();
   }
 
   signIn(user: User): Observable<any> {
