@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class PostService {
@@ -9007,6 +9008,7 @@ export class PostService {
     ];
   }
 
+  constructor(private http: HttpClient) {}
   getCustomersMini() {
     return Promise.resolve(this.getData().slice(0, 5));
   }
@@ -9025,5 +9027,9 @@ export class PostService {
 
   getCustomersXLarge() {
     return Promise.resolve(this.getData());
+  }
+
+  getCustomers(params?: any) {
+    return this.http.get<any>('https://www.primefaces.org/data/customers', { params: params }).toPromise();
   }
 }

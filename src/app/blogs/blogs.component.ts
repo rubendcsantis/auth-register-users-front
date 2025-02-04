@@ -24,7 +24,7 @@ import {Toast} from 'primeng/toast';
   ],
   templateUrl: './blogs.component.html',
   styleUrl: './blogs.component.css',
-  providers: [MessageService, PostService]
+  providers: [MessageService, PostService],
 })
 export class BlogsComponent {
   products!: Product[];
