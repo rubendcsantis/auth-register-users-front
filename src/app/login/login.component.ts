@@ -9,6 +9,10 @@ import {MessageService} from 'primeng/api';
 import {UserService} from '../services/user.service';
 import {UserLogin} from '../interfaces/interfaces';
 import {Toast} from 'primeng/toast';
+import {Card} from 'primeng/card';
+import {InputGroup} from 'primeng/inputgroup';
+import {InputGroupAddon} from 'primeng/inputgroupaddon';
+import {Image} from 'primeng/image';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +25,10 @@ import {Toast} from 'primeng/toast';
     NgIf,
     ReactiveFormsModule,
     Toast,
+    Card,
+    InputGroup,
+    InputGroupAddon,
+    Image,
   ],
   templateUrl: './login.component.html',
   providers: [MessageService, UserService, Router],
@@ -47,9 +55,9 @@ export class LoginComponent {
       next: (response) => {
         this.messageService.add({severity: 'success', summary: ` register successfully. Redirect...`});
         setTimeout(() => {
-          this.router.navigate(['/post-table']);
+          this.router.navigate(['/posts-table']);
         }, 1000)
-        this.userService.setToken(response.access_token, response.expires_in)
+        this.userService.setToken(response.access_token, response.expires_in, response.user)
       },
       error: ($e) => {
         if (typeof $e.error === 'object') {

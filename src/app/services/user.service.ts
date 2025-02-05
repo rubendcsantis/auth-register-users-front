@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment.development';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User, UserLogin, UserTable} from '../interfaces/interfaces';
@@ -10,6 +10,7 @@ import {CookieService} from 'ngx-cookie-service';
 })
 export class UserService {
   private readonly myAppUrl: string;
+
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.myAppUrl = environment.back_url;
   }
@@ -27,8 +28,7 @@ export class UserService {
       'Authorization': `Bearer ${this.getToken()}`,
       'Content-Type': 'application/json',
     });
-
-    return await this.http.put<any>(`${this.myAppUrl}/users/${id}`,  user, { headers }).toPromise();
+    return await this.http.put<any>(`${this.myAppUrl}/users/${id}`, user, {headers}).toPromise();
   }
 
   signIn(user: User): Observable<any> {
@@ -39,21 +39,31 @@ export class UserService {
     return this.http.post(`${this.myAppUrl}/login`, user);
   }
 
-  setToken(token: string, expires_in : any) {
+  setToken(token: string, expires_in: any, user: any) {
 
     this.cookieService.set('authToken', token, {
       expires: expires_in, // Expira en 1 día
       secure: false, // Solo se enviará en HTTPS
       sameSite: 'Strict', // Evita ataques CSRF
     });
+    this.cookieService.set('userMetaName', user.name, 1)
+    this.cookieService.set('userMetaRole', user.role, 1)
   }
 
   getToken(): string {
     return this.cookieService.get('authToken');
   }
 
+  getUserCookies() {
+    return {
+      name: this.cookieService.get('userMetaName'),
+      role: this.cookieService.get('userMetaRole'),
+    };
+  }
+
   deleteToken() {
     this.cookieService.delete('authToken', '/');
+    this.cookieService.delete('userMeta', '/');
   }
 }
 

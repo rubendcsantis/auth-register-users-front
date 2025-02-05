@@ -1,0 +1,72 @@
+<app-navbar/>
+<p-toast/>
+<div class="card">
+  <form (ngSubmit)="onSubmit()" >
+    <p-panel header="Create a new post">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Title:
+          </div>
+          <div class="ui-grid-col-6">
+            <input [formControl]="title" pInputText type="text" class="form-control" name="login">
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Content:
+          </div>
+          <p-editor [formControl]="content" [style]="{ height: '320px' }"/>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2"></div>
+          <div class="ui-grid-col-6">
+            <button pButton pRipple label="Save"></button>
+          </div>
+          <div class="ui-grid-col-4"></div>
+        </div>
+      </div>
+    </p-panel>
+  </form>
+</div>
+
+
+<!--<form (ngSubmit)="onSubmit()" >-->
+<!--  <p-panel header="Login Example">-->
+<!--    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">-->
+<!--      <div class="ui-grid-row">-->
+<!--        <div class="ui-grid-col-2">-->
+<!--          Login:-->
+<!--        </div>-->
+<!--        <div class="ui-grid-col-6">-->
+<!--          <input pInputText type="text" formControlName="login" class="form-control" name="login">-->
+<!--        </div>-->
+<!--        <div class="ui-grid-col-4">-->
+<!--&lt;!&ndash;          <div [hidden]="loginForm?.controls['login'].valid || !loginForm?.controls['login'].dirty" class="alert alert-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;            Login is required&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="ui-grid-row">-->
+<!--        <div class="ui-grid-col-2">-->
+<!--          Password:-->
+<!--        </div>-->
+<!--        <div class="ui-grid-col-6">-->
+<!--          <input pInputText type="password" formControlName="password" class="form-control" name="password">-->
+<!--        </div>-->
+<!--        <div class="ui-grid-col-4">-->
+<!--&lt;!&ndash;          <div [hidden]="loginForm?.controls['password'].valid || !loginForm?.controls['password'].dirty" class="alert alert-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;            Password is required&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="ui-grid-row">-->
+<!--        <div class="ui-grid-col-2"></div>-->
+<!--        <div class="ui-grid-col-6">-->
+<!--          <button pButton type="submit" label="Submit" [disabled]="!loginForm?.valid"></button>-->
+<!--        </div>-->
+<!--        <div class="ui-grid-col-4"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </p-panel>-->
+<!--</form>-->

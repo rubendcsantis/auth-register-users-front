@@ -9,6 +9,10 @@ import {NgIf} from '@angular/common';
 import {Toast} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {UserService} from '../services/user.service';
+import {Card} from 'primeng/card';
+import {Image} from 'primeng/image';
+import {InputGroup} from 'primeng/inputgroup';
+import {InputGroupAddon} from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +24,11 @@ import {UserService} from '../services/user.service';
     Ripple,
     RouterLink,
     NgIf,
-    Toast
+    Toast,
+    Card,
+    Image,
+    InputGroup,
+    InputGroupAddon
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css',

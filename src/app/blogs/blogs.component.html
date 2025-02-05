@@ -44,10 +44,10 @@
         <td>
           {{ post.title }}
         </td>
-        <td>{{ post.content }}</td>
-        <td>{{ post.createdAt }}</td>
+        <td [innerHTML]="post.content" class="break-word"></td>
+        <td> {{ post.createdAt }}</td>
         <td>
-          <p-button icon="pi pi-search" (click)="selectPost(post)" severity="secondary" rounded/>
+          <p-button icon="pi pi-eye" (click)="viewPost(post)" severity="secondary" rounded/>
         </td>
       </tr>
     </ng-template>

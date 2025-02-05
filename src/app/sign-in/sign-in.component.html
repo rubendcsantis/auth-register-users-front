@@ -1,68 +1,87 @@
-<div>
-  <p-toast/>
-  <form (ngSubmit)="onSubmit()">
-    <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-      <div class="text-center mb-5">
-        <img src="assets/images/blocks/logos/hyper.svg" alt="Image" height="50" class="mb-3">
+<p-toast/>
+<div class="grid place-items-center min-h-screen" style="margin-top: 15%; margin-left: 40%">
+  <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+    <ng-template #header>
+      <p-image
+        src="https://www.lucushost.com/blog/wp-content/uploads/2021/07/paginas-para-descargar-imagenes-gratis.png"
+        alt="Image" width="400" height="200"/>
+      <div class="text-center mb-5" style="text-align: center;">
+        <div class="text-900 text-3xl font-medium mb-3">Completed all fields to continue</div>
       </div>
-
-      <div>
-        <label for="name" class="block text-900 font-medium mb-2">Name</label>
-        <input [formControl]="name" id="name" type="text" placeholder="Enter your name" pInputText class="w-full mb-3">
-
-        <!-- Errors-->
-        <div class="container">
-          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-            <div *ngIf="name.errors?.['required']">Name is required.</div>
+    </ng-template>
+    <ng-template #title>
+    </ng-template>
+    <ng-template #subtitle>
+      <form (ngSubmit)="onSubmit()">
+        <div style="margin-bottom: 20px">
+          <!-- Errors-->
+          <div class="container">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+              <div *ngIf="name.errors?.['required']">Name is required.</div>
+            </div>
           </div>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+            <input [formControl]="name" id="name" type="text" pInputText placeholder="Enter your name"
+                   class="p-2 mb-2"/>
+          </p-inputgroup>
         </div>
-
-        <label for="email" class="block text-900 font-medium mb-2">Email</label>
-        <input [formControl]="email" id="email" type="email" placeholder="Email address" pInputText class="w-full mb-3">
-
         <!-- Errors-->
-        <div class="container">
+        <div class="container" style="margin-bottom: 20px">
           <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
             <div *ngIf="email.errors?.['required']">Email is required.</div>
             <div *ngIf="email.errors?.['email']">
               Invalid format email.
             </div>
           </div>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-key"></i>
+            </p-inputgroup-addon>
+            <input [formControl]="email" id="email" type="email" placeholder="Email address" pInputText/>
+          </p-inputgroup>
         </div>
-
-        <label for="password1" class="block text-900 font-medium mb-2">Password</label>
-        <input [formControl]="password" id="password1" type="password" placeholder="Password" pInputText
-               class="w-full mb-3">
-
         <!-- Errors-->
-        <div class="container">
+        <div class="container" style="margin-bottom: 20px">
           <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
             <div *ngIf="password.errors?.['required']">Password is required.</div>
             <div *ngIf="password.errors?.['minlength']">
               Password must be at least 6 characters long.
             </div>
           </div>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-key"></i>
+            </p-inputgroup-addon>
+            <input [formControl]="password" id="password1" type="password" placeholder="Password" pInputText/>
+          </p-inputgroup>
         </div>
-
-        <label for="password2" class="block text-900 font-medium mb-2">Confirm Password</label>
-        <input [formControl]="password_confirmation" id="password2" type="password" placeholder="Confirm Password" pInputText
-               class="w-full mb-3">
-        <div class="container">
+        <div class="container" style="margin-bottom: 20px">
           <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
             <div *ngIf="password.errors?.['required']">Password is required.</div>
             <div *ngIf="password.errors?.['minlength' ]">
               Password must be at least 6 characters long.
             </div>
           </div>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-key"></i>
+            </p-inputgroup-addon>
+            <input [formControl]="password_confirmation" id="password2" type="password" placeholder="Confirm Password"
+                   pInputText/>
+          </p-inputgroup>
         </div>
-
-        <div class="flex align-items-center justify-content-between mb-6">
-          <a routerLink="/login" class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Come
-            back!</a>
+        <div class="flex gap-4" style="text-align: center; margin-top: 10px">
+          <button style="margin-bottom: 10px" pButton pRipple label="Sign In" icon="pi pi-user" class="w-full"></button>
+          <div class="flex align-items-center justify-content-between mb-6">
+            <a routerLink="/login" class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Come
+              back!</a>
+          </div>
         </div>
-
-        <button pButton pRipple label="Sign In" icon="pi pi-user" class="w-full"></button>
-      </div>
-    </div>
-  </form>
+      </form>
+    </ng-template>
+  </p-card>
 </div>
+

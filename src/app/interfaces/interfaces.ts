@@ -1,9 +1,3 @@
-// export interface Post {
-//   id: number;
-//   title: string;
-//   content: string;
-// }
-
 export interface User {
   name: string;
   role: string;
@@ -40,6 +34,11 @@ export interface Post {
   title?: string;
   content?: string;
   createdAt?: string;
+}
+
+export interface PostTable {
+  title?: string;
+  content?: string;
 }
 
 

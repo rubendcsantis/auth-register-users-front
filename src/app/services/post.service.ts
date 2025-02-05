@@ -1,40 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment.development';
+import {PostTable, User} from '../interfaces/interfaces';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  // getData() {
-  //   return [
-  //
-  //   ];
-  // }
   private readonly myAppUrl: string;
 
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.back_url;
   }
-  // getCustomersMini() {
-  //   return Promise.resolve(this.getData().slice(0, 5));
-  // }
-  //
-  // getCustomersSmall() {
-  //   return Promise.resolve(this.getData().slice(0, 10));
-  // }
-  //
-  // getCustomersMedium() {
-  //   return Promise.resolve(this.getData().slice(0, 50));
-  // }
-  //
-  // getCustomersLarge() {
-  //   return Promise.resolve(this.getData().slice(0, 200));
-  // }
-  //
-  // getCustomersXLarge() {
-  //   return Promise.resolve(this.getData());
-  // }
 
   formatDateToLocal = (
     dateStr: string,
@@ -49,6 +27,16 @@ export class PostService {
     const formatter = new Intl.DateTimeFormat(locale, options);
     return formatter.format(date);
   };
+
+  savePost(post: PostTable, token: string): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      "Content-Type": "application/json",
+    });
+
+    return this.http.post(`${this.myAppUrl}/posts`, post, { headers });
+  }
 
 
   async getPosts(params?: any) {
